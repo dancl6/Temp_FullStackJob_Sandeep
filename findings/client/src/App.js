@@ -1,7 +1,25 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from 'react'
 
 function App() {
+
+  const fetchMessage = async () => {
+    // Use Fetch API to fetch '/api' endpoint
+    const message = await fetch('/')
+      .then(res =>{
+        console.log("data from message is:", message)
+        res.send()
+      } ) // process incoming data
+
+    // Update welcomeMessage state
+    // setWelcomeMessage(message)
+  }
+
+  useEffect(() => {
+    fetchMessage()
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
