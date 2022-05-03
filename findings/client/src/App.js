@@ -8,30 +8,6 @@ function App() {
 
 
   
-  const fetchMessage = async () => {
-    // Use Fetch API to fetch '/api' endpoint
-    const message = await fetch('/')
-    console.log("data from message is:", message)
-    .then(res =>{
-        console.log("data from message is:", message)
-        res.send()
-      } ) // process incoming data
-
-    // Update welcomeMessage state
-    // setWelcomeMessage(message)
-  }
-
-  // useEffect(() => {
-  //   fetchMessage()
-  // }, [])
-
-//   useEffect(() => {
-//     axios.get('/grouped_findings').then(response=> {
-//       console.log("response from axios is:", response)
-//     })
-      
-
-// }, []);
 
 
   return (
