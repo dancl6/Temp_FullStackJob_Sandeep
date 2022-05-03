@@ -13,7 +13,9 @@ function App() {
   return (
 
     <Router>
+      <Nav key = "nav" />
       <Routes>
+
         {/* <Route path="/" element={<Layout />}> */}
           {/* <Route index element={<Home />} /> */}
           <Route path="pie_chart" element={<Pie_Chart />} />
