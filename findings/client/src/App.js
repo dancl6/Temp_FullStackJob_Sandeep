@@ -1,13 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+// import { Grouped_Findings } from "./Grouped_Findings"
+import Grouped_Findings  from './Grouped_Findings';
 import React, { useEffect, useState } from 'react'
-
+import axios from 'axios'
 function App() {
 
+
+  
   const fetchMessage = async () => {
     // Use Fetch API to fetch '/api' endpoint
     const message = await fetch('/')
-      .then(res =>{
+    console.log("data from message is:", message)
+    .then(res =>{
         console.log("data from message is:", message)
         res.send()
       } ) // process incoming data
@@ -16,12 +21,21 @@ function App() {
     // setWelcomeMessage(message)
   }
 
-  useEffect(() => {
-    fetchMessage()
-  }, [])
+  // useEffect(() => {
+  //   fetchMessage()
+  // }, [])
+
+//   useEffect(() => {
+//     axios.get('/grouped_findings').then(response=> {
+//       console.log("response from axios is:", response)
+//     })
+      
+
+// }, []);
+
 
   return (
-    <div className="App">
+    <div >
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -36,6 +50,7 @@ function App() {
           Learn React
         </a>
       </header>
+<Grouped_Findings></Grouped_Findings>
     </div>
   );
 }
