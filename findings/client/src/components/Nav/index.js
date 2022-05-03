@@ -23,13 +23,7 @@ function Nav() {
               </li>
               </Col>
            
-              {/* <Col>
-              <li className="mx-1">
-                <Link to="/add_load">
-                  Add Load
-                </Link>
-              </li>
-              </Col> */}
+
               </Row>
             </ul>
 
