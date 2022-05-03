@@ -35,12 +35,24 @@ router.get('/grouped_findings',  (req, res) => {
      })
       })
 
+      router.get('/joined_findings',  (req, res) => {
+        // grouped_findings.findAll({
+       const sql = `SELECT grouped_findings.id, grouped_findings.severity , raw_findings.source_security_tool_id, raw_findings.grouped_finding_id
+       FROM grouped_findings
+       INNER JOIN raw_findings ON grouped_findings.id= raw_findings.grouped_finding_id;`
+       const params = []
+       db.all(sql, params, (err, rows)=> {
+         if(err) {
+           res.status(500).json({ error: err.message})
+           return
+         }
+         res.json({
+           message: 'success',
+           data: rows
+         })
+       })
+        })
 
-// .then(dbDate => {
-//     console.log("grouped findings is:", dbData)
-//   res.send  (dbDate)
-// })
-// .catch(err => res.status(500).json(err))
-// })
+
 
 module.exports = router;
