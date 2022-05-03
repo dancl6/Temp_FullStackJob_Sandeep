@@ -1,33 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
-// import { Grouped_Findings } from "./Grouped_Findings"
-import Grouped_Findings  from './Grouped_Findings';
+import { Link } from "react-router-dom";
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import Nav from "./components/Nav";
+import Grouped_Findings from "./components/Grouped_Findings";
+import Pie_Chart from "./components/Pie_Chart";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+// import pie_chart from './pie_chart';
+
 function App() {
 
-
-  
-
-
   return (
-    <div >
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-<Grouped_Findings></Grouped_Findings>
-    </div>
+
+    <Router>
+      <Routes>
+        {/* <Route path="/" element={<Layout />}> */}
+          {/* <Route index element={<Home />} /> */}
+          <Route path="pie_chart" element={<Pie_Chart />} />
+
+        {/* </Route> */}
+      </Routes>
+    </Router>
   );
 }
 
