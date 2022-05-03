@@ -18,6 +18,7 @@ function App() {
 
 
           <Route path="pie_chart" element={<Pie_Chart />} />
+          <Route path="grouped_findings" element={<Grouped_Findings />} />
 
       </Routes>
     </Router>

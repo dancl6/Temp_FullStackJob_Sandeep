@@ -21,6 +21,11 @@ function Nav() {
                   Pie Chart
                 </Link>
               </li>
+                <li className="mx-1">
+                    <Link to="/grouped_findings">
+                    Grouped Findings
+                    </Link>
+                </li>
               </Col>
            
 

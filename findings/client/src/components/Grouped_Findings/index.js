@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Dropdown } from "react-bootstrap"
 function Grouped_Findings() {
   const [dataResponse, setDataResponse ] = useState()
     useEffect(() => {
@@ -20,6 +21,18 @@ function Grouped_Findings() {
     return (
       <div>
         
+        <Dropdown>
+  <Dropdown.Toggle variant="success" id="dropdown-basic">
+    Dropdown Button
+  </Dropdown.Toggle>
+
+  <Dropdown.Menu>
+    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+  </Dropdown.Menu>
+</Dropdown>
+
         <div className="App">
          At Grouped Findings
          {dataResponse? 
