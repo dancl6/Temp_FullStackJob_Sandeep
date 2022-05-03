@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 // const { grouped_findings } = require('')
-const db = require('../test');
+const db = require('../db');
 // const grouped_findings = "grouped_findings"
 router.get('/grouped_findings',  (req, res) => {
     // grouped_findings.findAll({
