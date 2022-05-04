@@ -12,7 +12,6 @@ Use a sqlite database to create a collapsable table showing its data and a pie c
 * [Badges](#badges)
 * [Description](#description)
 * [Installation](#installation)
-* [Deployment](#deployed)
 * [Usage](#usage)
 * [License](#license)
 * [Contributing](#contributing)
