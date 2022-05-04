@@ -1,155 +1,177 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from 'react-bootstrap/Table'
 import { Modal, Button } from "react-bootstrap"
-import ReactDOM from 'react-dom';
-import Wrapper from 'react'
+import "bootstrap/js/src/collapse.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Fade from 'react-bootstrap/Fade'
 
-// import styled, { css } from 'styled-components'
 function Grouped_Findings() {
-    // const rowEvents = {
-    //     onClick: (e,id) => {
-    //         console.log(id)
-    //     }
-    // }
 
+const [open, setOpen] = useState(false);
 const [ tableId, setTableId ] = useState()
 
-    const onRowClick = (state, rowInfo, column, instance) => {
-        return {
-            onClick: e => {
-                console.log('A Td Element was clicked!')
-                console.log('it produced this event:', e)
-                console.log('It was in this column:', column)
-                console.log('It was in this row:', rowInfo)
-                console.log('It was in this table instance:', instance)
+
+
+   const getRawFindings = (tableId) =>{
+
+        var test = []
+        if(joinedDataResponse) {
+            for ( let i = 0 ; i < joinedDataResponse.data.data.length; i ++ ) {
+                if (joinedDataResponse.data.data[i].grouped_finding_id === tableId){
+                    test.push(joinedDataResponse.data.data[i])
+                }
             }
+
         }
+        setJoinedArray(test)
+
     }
 
-    function displayMessage(e){
-        // e.preventDefault();
-        document.getElementById(tableId).innerHTML = "The button has been clicked.";
-    }   
-    // get reference to button
-    var btn = document.getElementById(tableId);
-    // add event listener for the button, for action "click"
 
-    const actions = [
-        { label: "Add", value: 1 },
-        { label: "Edit", value: 2 },
-        { label: "Delete", value: 3 }
-      ];
 
-      const [ modalInfo, setModalInfo ] = useState([])
-      const [ showModal, setShowModal ] = useState(false)
-      const [ show, setShow ] = useState(false)
-      const handleClose = () => setShow(false)
-      const handleShow = () => setShow(true)
-      const rowevents = {
-          onClick: (e) => {
-              console.log("i am here",e)
-              setModalInfo("hello")
-              toggleTrueFalse()
-          }
-      }
+      const [show, setShow] = useState(false);
 
-      const Function = (Event)=>{
-          console.log("event is:", Event)
-      }
-  
-      const toggleTrueFalse = () => {
-          setShowModal(handleShow)
-      }
-  
-      const ModalContent = () => {
-          return (
-              <Modal show={show} onHide = {handleClose}>
-                  <Modal.Header closeButton>
-                      <Modal.Title>{modalInfo.severity}</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body></Modal.Body>
-                  <Modal.Footer>
-                      <Button variant="secondary" onClick={handleClose}>
-                          Close
-                      </Button>
-                  </Modal.Footer>
-              </Modal>
-          )
-      }
+      const handleClose = () => setShow(false);
+      const handleShow = () => setShow(true);
 
   const [dataResponse, setDataResponse ] = useState()
+  const [joinedDataResponse, setJoinedDataResponse ] = useState()
+  const [joinedArray, setJoinedArray ] = useState()
   
+if (dataResponse && joinedDataResponse) {
+    var numberOfJoined = [] 
+    for(let i = 0 ; i < dataResponse.data.data.length; i ++ ) {
+        var count = 0
+        for ( let j = 0 ; j < joinedDataResponse.data.data.length; j ++ ) {
+            if (dataResponse.data.data[i].id === joinedDataResponse.data.data[j].grouped_finding_id){
+                count = count + 1
+            }
+        }
+        numberOfJoined.push(count)
+
+    }
+
+
+}
 
     useEffect(() => {
         axios.get('/grouped_findings').then(response=> {
-          console.log("grouped findings response from axios is:", response)
-
           setDataResponse(response)
         })
         axios.get('/raw_findings').then(response=> {
-          console.log("raw findings response from axios is:", response)
-
         })
         axios.get('/joined_findings').then(response=> {
-          console.log("joined findings response from axios is:", response)
-
+          setJoinedDataResponse(response)
         })
     }, []);
 
-
-    if (dataResponse){
-        // btn.addEventListener("click", displayMessage);
-        }
     return (
-<div className="App">
 
-          <Table id = "grouped_findings_table" 
-        bootstrap4="true"
-          rowevents = {rowevents}
-          data={[]} columns={[]} getTrProps={onRowClick}
+
+<div style={{ display: 'block', width: 700, padding: 30 }}>
+
+
+
+  <Modal key= "parent Modal"  dialogClassName="my-modal modal-xl"  show={show} onHide={handleClose} >
+  <div >
+        <Modal.Header key = "modal header"  closeButton>
+          <Modal.Title key = "modal title">Raw Findings</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body key = "modal body"  dialogClassName= "my-modal " >
+
+        <Table key = "parent table" id = "grouped_findings_table" 
           >
-          <thead>
+    <thead>
     <tr>
- 
-      <th>Severity
-
-
-      </th>
+       <th>Severity</th>
       <th>Time</th>
-      <th>SLA</th>
+      <th>Source</th>
       <th>Description</th>
-      <th>Security Analyst</th>
-      <th>Owner</th>
+      <th>Asset</th>
       <th>Status</th>
-      <th># Findings</th>
-      <th>Communications</th>
-      <th>Actions</th>
+
     </tr>
   </thead>
   <tbody>
  
-  {
-            dataResponse?.data.data.map(item =>
-            item  ?
-            (
+  { joinedArray?.map(item =>
+            item  ? (
  
-    <tr
-    // rowevents = {rowevents}
-    
+    <tr>
+      <td>{item.severity}</td>
+      <td>{item.finding_created}</td>
+      <td>{item.source_security_tool_name}</td>
+      <td>{item.description}</td>
+      <td>{item.asset}</td>
+      <td>{item.status}</td>
+    </tr>
+             ): null)}
+ 
+  </tbody>
+
+    </Table>
+        </Modal.Body>
+
+        <Modal.Footer key = "modal footer">
+          <Button key = "close modal" variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+
+        </Modal.Footer>
+        </div>
+      </Modal><h4>Grouped Findings</h4>
+<div style={{ width: 660, height: 'auto' }}>
+    <Button
+    variant="link"
+    onClick={() => setOpen(!open)}
+    aria-expanded={open}
+    aria-controls="fadeID"
+    key = "fade button"
     >
-      <td>{item.severity}
-      <Button onClick={() => {
+    Collapse Table
+    </Button>
+    <Fade key = "fade" in={open}>
+    <div id="fadeID" key = "fade div"
+    style={{
+    width: 300,
+    textAlign: 'justify'
+    }}
+    >
+   <Table key = "grouped_findings_table" 
+
+          data={[]} columns={[]} 
+          ><thead>
+         <tr>
+            <th>Severity</th>
+            <th>Time</th>
+            <th>SLA</th>
+            <th>Description</th>
+            <th>Security Analyst</th>
+            <th>Owner</th>
+            <th>Workflow</th>
+            <th>Status</th>
+            <th># Findings</th>
+        </tr>
+    </thead>
+  <tbody>
  
+   { dataResponse?.data.data.map((item,index) => (
+            numberOfJoined ?(
+       
+    <tr   data-toggle="collapse"
+    data-target=".multi-collapse1"
+    aria-controls="multiCollapseExample1"  >
+      <td>{item.severity}
+      <Button data-toggle="modal" key = "modal button toggle" data-target=".bd-example-modal-lg"  onClick={() => {
+        setTableId(item.id)
+        handleShow()
+        getRawFindings(item.id)    
+      }
       
-      setTableId(item.id)
-      displayMessage()
-    
-    }
-      
-      } type="button" id={item.id} ></Button>
+      } type="button" id={item.id} >V</Button>
       <p id="msg"></p>
       </td>
       <td>{item.grouped_finding_created}</td>
@@ -159,23 +181,17 @@ const [ tableId, setTableId ] = useState()
       <td>{item.owner}</td>
       <td>{item.workflow}</td>
       <td>{item.status}</td>
-      <td>test</td>
-      <td>test</td>
+      <td>{numberOfJoined[index]}</td>
 
     </tr>
- 
- 
-            ): null)}
- 
+   ): null))}
   </tbody>
 
           </Table>
-          {show ? <ModalContent /> : null}    
-
-          </div>
-
-
-
+    </div>
+  </Fade>
+ </div>
+</div>
     )
     }
     

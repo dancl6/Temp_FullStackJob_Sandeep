@@ -26,11 +26,7 @@ function Nav() {
                     Grouped Findings
                     </Link>
                 </li>
-                <li className="mx-1">
-                    <Link to="/test_modal">
-                    Test Modal
-                    </Link>
-                </li>
+                
               </Col>
            
 

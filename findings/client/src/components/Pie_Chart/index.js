@@ -57,7 +57,7 @@ console.log("critical:", critical, "high:", high, "medium:", medium, "low", low)
   return (
     <div>
 
-<Chart
+<Chart    key = "pie chart"
           width={'600px'}
           height={'320px'}
           chartType="PieChart"
