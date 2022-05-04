@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.table-bordered {
+  border: 5px double orange !important;
+
+}
+
+.table {
+  color: green
+}
+
+.the-table {
+  table-layout: fixed;
+  over-flow: break-word;
+}
