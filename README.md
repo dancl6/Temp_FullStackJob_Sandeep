@@ -16,7 +16,7 @@ Use a sqlite database to create a collapsable table showing its data and a pie c
 * [License](#license)
 * [Contributing](#contributing)
 * [Tests](#tests)
-* [Questions](#questions)
+
 
 ## Installation
 
@@ -38,8 +38,6 @@ Dan Lyons and Sandeep Bisht
 ## Tests
 
 N/A
-
-## Questions
 
 [User Git Hub Link](https://github.com/dancl6/Temp_FullStackJob_Sandeep/ )
 
