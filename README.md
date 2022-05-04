@@ -1,0 +1,47 @@
+# Full Stack Assessment For Contract Opportunity  
+
+## Badges
+
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+## Description
+
+Use a sqlite database to create a collapsable table showing its data and a pie chart.
+
+## Table of Contents
+* [Badges](#badges)
+* [Description](#description)
+* [Installation](#installation)
+* [Deployment](#deployed)
+* [Usage](#usage)
+* [License](#license)
+* [Contributing](#contributing)
+* [Tests](#tests)
+* [Questions](#questions)
+
+## Installation
+
+Create a zip file of folder using Github Repo, open terminal, type  npm i     then type npm start    
+
+
+## Usage 
+
+
+
+## License
+
+MIT License
+
+## Contributing
+
+Dan Lyons and Sandeep Bisht
+
+## Tests
+
+N/A
+
+## Questions
+
+[User Git Hub Link](https://github.com/dancl6/Temp_FullStackJob_Sandeep/ )
+
+User Email: dan.lyons.career@gmail.com
