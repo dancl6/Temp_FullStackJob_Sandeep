@@ -20,7 +20,7 @@ Use a sqlite database to create a collapsable table showing its data and a pie c
 
 ## Installation
 
-Create a zip file of folder using Github Repo, open terminal, type  npm i     then type npm start    
+Create a zip file of folder using Github Repo, open terminal and navigate into findings folder, type  npm i     then type npm start    
 
 
 ## Usage 
