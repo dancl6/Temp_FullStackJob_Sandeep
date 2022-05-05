@@ -4,6 +4,7 @@ import Chart from 'react-google-charts'
 function Pie_Chart() {
 
     const [dataResponse, setDataResponse ] = useState()
+    // Get grouped findings on initial page render
     useEffect(() => {
         axios.get('/grouped_findings').then(response=> {
           console.log("grouped findings response from axios is:", response)
@@ -12,34 +13,34 @@ function Pie_Chart() {
         })
 
     }, []);
+    // Get the total number of critical, high, medium and low severity values and their percentage
+    var critical, high, medium, low 
+    critical = 0
+    high = 0
+    medium = 0
+    low = 0
+    if (dataResponse) {
+        for ( let i = 0; i < dataResponse.data.data.length; i ++ ) {
+            if (dataResponse.data.data[i].severity === "critical" ){
+                critical = critical + 1
+            }
+            if (dataResponse.data.data[i].severity === "high" ){
+                high = high + 1
+            }
+            if (dataResponse.data.data[i].severity === "medium" ){
+                medium = medium + 1
+            }
+            if (dataResponse.data.data[i].severity === "low" ){
+                low = low + 1
+            }
+        }
+        critical = critical/dataResponse.data.data.length*100
+        high = high/dataResponse.data.data.length*100
+        medium = medium/dataResponse.data.data.length*100
+        low = low/dataResponse.data.data.length*100
 
-var critical, high, medium, low 
-critical = 0
-high = 0
-medium = 0
-low = 0
-if (dataResponse) {
-    for ( let i = 0; i < dataResponse.data.data.length; i ++ ) {
-        if (dataResponse.data.data[i].severity === "critical" ){
-            critical = critical + 1
-        }
-        if (dataResponse.data.data[i].severity === "high" ){
-            high = high + 1
-        }
-        if (dataResponse.data.data[i].severity === "medium" ){
-            medium = medium + 1
-        }
-        if (dataResponse.data.data[i].severity === "low" ){
-            low = low + 1
-        }
+    console.log("critical:", critical, "high:", high, "medium:", medium, "low", low)
     }
-    critical = critical/dataResponse.data.data.length*100
-    high = high/dataResponse.data.data.length*100
-    medium = medium/dataResponse.data.data.length*100
-    low = low/dataResponse.data.data.length*100
-
-console.log("critical:", critical, "high:", high, "medium:", medium, "low", low)
-}
     const pieData = [
         ['Severity', 'Percent'],
         ['Critical', critical],
@@ -54,9 +55,9 @@ console.log("critical:", critical, "high:", high, "medium:", medium, "low", low)
       }
 
 
-  return (
+ return (
     <div>
-
+{/* Create Pie Chart */}
 <Chart    key = "pie chart"
           width={'600px'}
           height={'320px'}

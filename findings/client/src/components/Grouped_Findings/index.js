@@ -13,7 +13,7 @@ const [open, setOpen] = useState(false);
 const [ tableId, setTableId ] = useState()
 
 
-
+   // Define function for getting raw findings that have the same id as the grouped finding
    const getRawFindings = (tableId) =>{
 
         var test = []
@@ -28,18 +28,14 @@ const [ tableId, setTableId ] = useState()
         setJoinedArray(test)
 
     }
-
-
-
-      const [show, setShow] = useState(false);
-
-      const handleClose = () => setShow(false);
-      const handleShow = () => setShow(true);
-
+  // Set states for modal creation and data retrieval
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [dataResponse, setDataResponse ] = useState()
   const [joinedDataResponse, setJoinedDataResponse ] = useState()
   const [joinedArray, setJoinedArray ] = useState()
-  
+// Find number of occurrences of raw findings that match grouped findings  
 if (dataResponse && joinedDataResponse) {
     var numberOfJoined = [] 
     for(let i = 0 ; i < dataResponse.data.data.length; i ++ ) {
@@ -55,7 +51,7 @@ if (dataResponse && joinedDataResponse) {
 
 
 }
-
+    // Use axios to fetch data from back end on initial  render
     useEffect(() => {
         axios.get('/grouped_findings').then(response=> {
           setDataResponse(response)
@@ -67,13 +63,10 @@ if (dataResponse && joinedDataResponse) {
         })
     }, []);
 
-    return (
-
+return (
 
 <div style={{ display: 'block', width: 700, padding: 30 }}>
-
-
-
+  {/* Define modal table for raw findings */}
   <Modal key= "parent Modal"  dialogClassName="my-modal modal-xl"  show={show} onHide={handleClose} >
   <div >
         <Modal.Header key = "modal header"  closeButton>
@@ -84,33 +77,33 @@ if (dataResponse && joinedDataResponse) {
 
         <Table key = "parent table" id = "grouped_findings_table" 
           >
-    <thead>
-    <tr>
-       <th>Severity</th>
-      <th>Time</th>
-      <th>Source</th>
-      <th>Description</th>
-      <th>Asset</th>
-      <th>Status</th>
+            <thead>
+            <tr>
+            <th>Severity</th>
+            <th>Time</th>
+            <th>Source</th>
+            <th>Description</th>
+            <th>Asset</th>
+            <th>Status</th>
 
-    </tr>
-  </thead>
-  <tbody>
+            </tr>
+        </thead>
+       <tbody>
  
-  { joinedArray?.map(item =>
+        { joinedArray?.map(item =>
             item  ? (
  
-    <tr>
-      <td>{item.severity}</td>
-      <td>{item.finding_created}</td>
-      <td>{item.source_security_tool_name}</td>
-      <td>{item.description}</td>
-      <td>{item.asset}</td>
-      <td>{item.status}</td>
-    </tr>
+        <tr>
+        <td>{item.severity}</td>
+        <td>{item.finding_created}</td>
+        <td>{item.source_security_tool_name}</td>
+        <td>{item.description}</td>
+        <td>{item.asset}</td>
+        <td>{item.status}</td>
+        </tr>
              ): null)}
  
-  </tbody>
+        </tbody>
 
     </Table>
         </Modal.Body>
@@ -122,25 +115,30 @@ if (dataResponse && joinedDataResponse) {
 
         </Modal.Footer>
         </div>
-      </Modal><h4>Grouped Findings</h4>
-<div style={{ width: 660, height: 'auto' }}>
-    <Button
-    variant="link"
-    onClick={() => setOpen(!open)}
-    aria-expanded={open}
-    aria-controls="fadeID"
-    key = "fade button"
-    >
-    Collapse Table
-    </Button>
-    <Fade key = "fade" in={open}>
-    <div id="fadeID" key = "fade div"
-    style={{
-    width: 300,
-    textAlign: 'justify'
-    }}
-    >
-   <Table key = "grouped_findings_table" 
+        
+        </Modal>
+
+        <h4>Grouped Findings</h4>
+        <div style={{ width: 660, height: 'auto' }}>
+        {/* Create button for collapsing table */}
+        <Button
+        variant="link"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-controls="fadeID"
+        key = "fade button"
+        >
+        Collapse Table
+        </Button>
+        <Fade key = "fade" in={open}>
+        <div id="fadeID" key = "fade div"
+        style={{
+        width: 300,
+        textAlign: 'justify'
+        }}
+        >
+        {/* Create table for grouped findings */}
+        <Table key = "grouped_findings_table" 
 
           data={[]} columns={[]} 
           ><thead>
@@ -156,44 +154,45 @@ if (dataResponse && joinedDataResponse) {
             <th># Findings</th>
         </tr>
     </thead>
-  <tbody>
- 
-   { dataResponse?.data.data.map((item,index) => (
-            numberOfJoined ?(
-       
-    <tr   data-toggle="collapse"
-    data-target=".multi-collapse1"
-    aria-controls="multiCollapseExample1"  >
-      <td>{item.severity}
-      <Button data-toggle="modal" key = "modal button toggle" data-target=".bd-example-modal-lg"  onClick={() => {
-        setTableId(item.id)
-        handleShow()
-        getRawFindings(item.id)    
-      }
-      
-      } type="button" id={item.id} >V</Button>
-      <p id="msg"></p>
-      </td>
-      <td>{item.grouped_finding_created}</td>
-      <td>{item.sla}</td>
-      <td>{item.description}</td>
-      <td>{item.security_analyst}</td>
-      <td>{item.owner}</td>
-      <td>{item.workflow}</td>
-      <td>{item.status}</td>
-      <td>{numberOfJoined[index]}</td>
-
-    </tr>
-   ): null))}
-  </tbody>
-
-          </Table>
-    </div>
-  </Fade>
- </div>
-</div>
-    )
-    }
+    <tbody>
     
-    export default Grouped_Findings;
+    { dataResponse?.data.data.map((item,index) => (
+                numberOfJoined ?(
+        
+        <tr   data-toggle="collapse"
+        data-target=".multi-collapse1"
+        aria-controls="multiCollapseExample1"  >
+        <td>{item.severity}
+        {/* Creat button for raw findings modal */}
+        <Button data-toggle="modal" key = "modal button toggle" data-target=".bd-example-modal-lg"  onClick={() => {
+            setTableId(item.id)
+            handleShow()
+            getRawFindings(item.id)    
+        }
+        
+        } type="button" id={item.id} >V</Button>
+        <p id="msg"></p>
+        </td>
+        <td>{item.grouped_finding_created}</td>
+        <td>{item.sla}</td>
+        <td>{item.description}</td>
+        <td>{item.security_analyst}</td>
+        <td>{item.owner}</td>
+        <td>{item.workflow}</td>
+        <td>{item.status}</td>
+        <td>{numberOfJoined[index]}</td>
+
+        </tr>
+    ): null))}
+    </tbody>
+
+    </Table>
+    </div>
+   </Fade>
+   </div>
+  </div>
+ )
+}
+    
+export default Grouped_Findings;
     
